@@ -30,10 +30,6 @@ class _NewThingPageState extends State<NewThingPage> {
 
   @override
   void dispose() {
-    // Hive.box("Things").close();
-    _thingtitleController.dispose();
-    _thingsubtitleController.dispose();
-    _thingcountController.dispose();
     super.dispose();
   }
 

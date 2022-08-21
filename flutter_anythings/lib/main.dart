@@ -7,15 +7,7 @@ import 'package:flutter_anythings/pages/ToDoList/ToDoList.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'model/NewThing.dart';
-
 Future main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-
-  // await Hive.initFlutter();
-
-  // Hive.registerAdapter(NewThingAdapter());
-  // await Hive.openBox<NewThing>('Things');
   runApp(AnyThings());
 }
 
