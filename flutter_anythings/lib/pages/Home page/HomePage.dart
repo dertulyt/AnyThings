@@ -79,28 +79,48 @@ class _HomePageState extends State<HomePage> {
                 subtitle: "120 minutes",
                 date: "9:40",
               ),
-              SizedBox(
-                height: 20,
-              ),
+
               NewThingWidget(
                 icon: Icons.sports_football,
                 title: "Sport",
                 subtitle: "60 minutes",
                 date: "10:48",
               ),
-              SizedBox(
-                height: 20,
-              ),
+
               NewThingWidget(
                 icon: Icons.school_outlined,
                 title: "Studing",
                 subtitle: "60 minutes",
                 date: "11:42",
               ),
+
+              buildNewThing()
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget buildNewThing() {
+  int index = 3;
+  return ListView.builder(
+    scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+    itemCount: index,
+    primary: false,
+    itemBuilder: (context, index) {
+      return InkWell(
+          onLongPress: () async {
+            // print(notes[index].id);
+          },
+          child: NewThingWidget(
+            icon: Icons.school_outlined,
+            title: "Studing",
+            subtitle: "60 minutes",
+            date: "11:42",
+          ));
+    },
+  );
 }

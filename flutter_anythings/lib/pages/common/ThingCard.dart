@@ -18,53 +18,60 @@ class NewThingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black87,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Icon(
-            icon,
-            size: 30,
-          ),
-        ),
-        SizedBox(
-          width: 15,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: [
-            Text(
-              title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black87,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: Icon(
+                icon,
+                size: 30,
+              ),
             ),
             SizedBox(
-              height: 5,
+              width: 15,
             ),
-            Text(
-              subtitle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  subtitle,
+                ),
+              ],
             ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    date,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            )
           ],
         ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                date,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
+        SizedBox(
           height: 20,
         )
       ],
