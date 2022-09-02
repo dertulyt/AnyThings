@@ -43,9 +43,13 @@ class NewThingWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                Container(
+                  width: 230,
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 SizedBox(
                   height: 5,

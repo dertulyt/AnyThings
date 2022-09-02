@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_anythings/pages/Home%20page/HomePage.dart';
 import 'package:flutter_anythings/pages/Home%20page/NewThingPage.dart';
 import 'package:flutter_anythings/pages/SettingsPage/Settingspage.dart';
 import 'package:flutter_anythings/pages/StatisticsPage/StatisticsPage.dart';
 import 'package:flutter_anythings/pages/ToDoList/ToDoList.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 
 Future main() async {
   runApp(AnyThings());
@@ -65,7 +64,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_rounded),
-            label: 'To Do List',
+            label: 'Tasks',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.show_chart_rounded),
@@ -77,7 +76,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 0, 8, 99),
+        selectedItemColor: const Color.fromARGB(255, 0, 8, 99),
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),

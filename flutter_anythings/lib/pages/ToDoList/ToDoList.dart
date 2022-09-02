@@ -12,6 +12,25 @@ class ToDoList extends StatefulWidget {
 class _ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        minimum: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "To do list:",
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

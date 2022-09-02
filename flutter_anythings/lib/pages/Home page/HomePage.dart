@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../common/ThingCard.dart';
+import '../db/AllThingsDatabase.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +16,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final isDealOpen = ValueNotifier(false);
+  // late List<Thing> Mythings;
+  List<Thing> things = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshNotes();
+  }
+
+  Future refreshNotes() async {
+    setState(() => isLoading = true);
+
+    this.things = await AllMyThings.instance.readAllNotes();
+    setState(() => isLoading = false);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () async {
                   Navigator.pushNamed(context, '/new-thing');
                   isDealOpen.value = false;
-                  setState(() {});
+                  refreshNotes();
                 },
                 child: Icon(
                   Icons.add,
@@ -57,70 +75,63 @@ class _HomePageState extends State<HomePage> {
         ),
         body: SafeArea(
           minimum: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
-          child: Column(
-            children: [
-              // Title
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Today',
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              // Card widget
-              NewThingWidget(
-                icon: Icons.keyboard_alt_outlined,
-                title: "Code",
-                subtitle: "120 minutes",
-                date: "9:40",
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Title
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Today',
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                // Card widget
 
-              NewThingWidget(
-                icon: Icons.sports_football,
-                title: "Sport",
-                subtitle: "60 minutes",
-                date: "10:48",
-              ),
-
-              NewThingWidget(
-                icon: Icons.school_outlined,
-                title: "Studing",
-                subtitle: "60 minutes",
-                date: "11:42",
-              ),
-
-              buildNewThing()
-            ],
+                isLoading
+                    ? CircularProgressIndicator()
+                    : things.isEmpty
+                        ? Text(
+                            'No Notes',
+                            style: TextStyle(color: Colors.black, fontSize: 24),
+                          )
+                        : buildNewThing(refreshNotes, things),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-Widget buildNewThing() {
-  int index = 3;
-  return ListView.builder(
-    scrollDirection: Axis.vertical,
-    shrinkWrap: true,
-    itemCount: index,
-    primary: false,
-    itemBuilder: (context, index) {
-      return InkWell(
-          onLongPress: () async {
-            // print(notes[index].id);
-          },
-          child: NewThingWidget(
-            icon: Icons.school_outlined,
-            title: "Studing",
-            subtitle: "60 minutes",
-            date: "11:42",
-          ));
-    },
-  );
+  Widget buildNewThing(value, things) {
+    refreshNotes();
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: things.length,
+      primary: false,
+      itemBuilder: (context, index) {
+        String hourDate =
+            '${things[index].createdTime.hour.toString()}:${things[index].createdTime.minute.toString()}';
+        return InkWell(
+            onLongPress: () async {
+              AllMyThings.instance.delete(things[index].id);
+              value();
+            },
+            child: NewThingWidget(
+              icon: Icons.school_outlined,
+              title: things[index].title,
+              subtitle: "${things[index].count} ${things[index].category}",
+              date: hourDate,
+            ));
+      },
+    );
+  }
 }
