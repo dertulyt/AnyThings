@@ -72,7 +72,6 @@ class _NewThingPageState extends State<NewThingPage> {
                     category: selectedItem);
                 await AllMyThings.instance.create(thing);
                 Navigator.pop(context);
-                super.setState(() {});
               }
             },
             shape: BeveledRectangleBorder(

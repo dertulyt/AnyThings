@@ -61,7 +61,10 @@ class _HomePageState extends State<HomePage> {
               label: "Create new Thing",
               child: InkWell(
                 onTap: () async {
-                  Navigator.pushNamed(context, '/new-thing');
+                  Navigator.pushNamed(context, '/new-thing').then((_) => {
+                        print('hi'),
+                        refreshNotes(),
+                      });
                   isDealOpen.value = false;
                   refreshNotes();
                 },
@@ -118,7 +121,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildNewThing(val, things) {
-    refreshNotes();
+    // refreshNotes();
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
@@ -130,7 +133,7 @@ class _HomePageState extends State<HomePage> {
         return InkWell(
             onLongPress: () async {
               AllMyThings.instance.delete(things[index].id);
-              val();
+              refreshNotes();
             },
             child: NewThingWidget(
               icon: Icons.school_outlined,
