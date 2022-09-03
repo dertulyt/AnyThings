@@ -66,7 +66,7 @@ class AllMyThings {
 
     final orderBy = '${ThingFields.time} ASC';
 
-    final result = await db.query(tableThings, orderBy: orderBy);
+    final result = await db.query(tableThings, orderBy: "time DESC");
 
     return result.map((json) => Thing.fromJson(json)).toList();
   }

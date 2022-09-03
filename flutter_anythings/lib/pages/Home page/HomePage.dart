@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
 
   Future refreshNotes() async {
     setState(() => isLoading = true);
-
     this.things = await AllMyThings.instance.readAllNotes();
     setState(() => isLoading = false);
     setState(() {});
@@ -52,12 +51,12 @@ class _HomePageState extends State<HomePage> {
           animatedIcon: AnimatedIcons.menu_close,
           children: [
             // Всплывающая кнопка
-            SpeedDialChild(
-              label: "Filter and sorting",
-              child: Icon(
-                Icons.filter_alt,
-              ),
-            ),
+            // SpeedDialChild(
+            //   label: "Filter and sorting (doesn't work)",
+            //   child: Icon(
+            //     Icons.filter_alt,
+            //   ),
+            // ),
             SpeedDialChild(
               label: "Create new Thing",
               child: InkWell(
@@ -76,41 +75,49 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           minimum: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Title
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Today',
-                      style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // Card widget
-
-                isLoading
-                    ? CircularProgressIndicator()
-                    : things.isEmpty
-                        ? Text(
-                            'No Notes',
-                            style: TextStyle(color: Colors.black, fontSize: 24),
-                          )
-                        : buildNewThing(refreshNotes, things),
-              ],
-            ),
+            child: isLoading
+                ? CircularProgressIndicator()
+                : things.isEmpty
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: Text(
+                              'Tap + to add new Thing',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 24),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          // Title
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Today',
+                                style: TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          buildNewThing(refreshNotes, things),
+                        ],
+                      ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildNewThing(value, things) {
+  Widget buildNewThing(val, things) {
     refreshNotes();
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -123,7 +130,7 @@ class _HomePageState extends State<HomePage> {
         return InkWell(
             onLongPress: () async {
               AllMyThings.instance.delete(things[index].id);
-              value();
+              val();
             },
             child: NewThingWidget(
               icon: Icons.school_outlined,

@@ -16,6 +16,7 @@ class AnyThings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(errorColor: Color.fromARGB(255, 2, 0, 63)),
       debugShowCheckedModeBanner: false,
       // home: MainPage(),
       initialRoute: '/',

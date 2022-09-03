@@ -52,7 +52,7 @@ class _NewThingPageState extends State<NewThingPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: Container(
+        floatingActionButton: SizedBox(
           height: 50,
           width: 300,
           child: FloatingActionButton(
@@ -72,10 +72,11 @@ class _NewThingPageState extends State<NewThingPage> {
                     category: selectedItem);
                 await AllMyThings.instance.create(thing);
                 Navigator.pop(context);
+                super.setState(() {});
               }
             },
             shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(3),
             ),
           ),
         ),
@@ -132,7 +133,7 @@ class _NewThingPageState extends State<NewThingPage> {
                   height: 20,
                 ),
                 Container(
-                  decoration: BoxDecoration(),
+                  // decoration: BoxDecoration(),
                   height: 80,
                   child: Container(
                     padding: EdgeInsets.all(10),
