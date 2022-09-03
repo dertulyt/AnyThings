@@ -62,7 +62,6 @@ class _HomePageState extends State<HomePage> {
               child: InkWell(
                 onTap: () async {
                   Navigator.pushNamed(context, '/new-thing').then((_) => {
-                        print('hi'),
                         refreshNotes(),
                       });
                   isDealOpen.value = false;

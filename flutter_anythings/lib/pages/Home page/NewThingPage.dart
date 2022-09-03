@@ -42,16 +42,9 @@ class _NewThingPageState extends State<NewThingPage> {
     selectedItem = widget.thing?.category ?? '';
   }
 
-  // void initState() {
-  //   super.initState();
-  //   newThingTitle = widget.thing?.title ?? '';
-  //   newThingSubtitle = widget.thing?.subtitle ?? '';
-  //   newThingCount = widget.thing?.count ?? 0;
-  //   selectedItem = widget.thing?.category ?? '';
-  // }
-
   @override
   Widget build(BuildContext context) => Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: SizedBox(
           height: 50,
           width: 300,
@@ -86,111 +79,169 @@ class _NewThingPageState extends State<NewThingPage> {
         ),
         body: Form(
           key: _formKey,
-          child: SafeArea(
-            minimum: EdgeInsets.all(15),
-            child: Column(
-              children: [
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please write some title...';
-                    }
-                    return null;
-                  },
-                  controller: _thingtitleController,
-                  decoration: const InputDecoration(
-                    labelText: "Title",
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+          child: SingleChildScrollView(
+            child: SafeArea(
+              minimum: EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please write some title...';
+                      }
+                      return null;
+                    },
+                    controller: _thingtitleController,
+                    decoration: const InputDecoration(
+                      labelText: "Title",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 0, 101, 110)),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 101, 110)),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _thingsubtitleController,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    labelText: "Subtitle",
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 0, 101, 110)),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  // decoration: BoxDecoration(),
-                  height: 80,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(),
+                  TextFormField(
+                    controller: _thingsubtitleController,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      labelText: "Subtitle",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 0, 101, 110)),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 200,
-                          // decoration: BoxDecoration(color: Colors.blueGrey),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Write please some count...';
-                              }
-                              return null;
-                            },
-                            controller: _thingcountController,
-                            decoration: const InputDecoration(
-                              labelText: "Count",
-                              border: InputBorder.none,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    // decoration: BoxDecoration(),
+                    height: 80,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 200,
+                            // decoration: BoxDecoration(color: Colors.blueGrey),
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Write please some count...';
+                                }
+                                return null;
+                              },
+                              controller: _thingcountController,
+                              decoration: const InputDecoration(
+                                labelText: "Count",
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          height: 50,
-                          // decoration: BoxDecoration(color: Colors.blueGrey),
-                          child: DropdownButton<String>(
-                            value: selectedItem,
-                            items: items
-                                .map(
-                                  (item) => DropdownMenuItem<String>(
-                                    child: Text(item),
-                                    value: item,
-                                  ),
+                          Container(
+                            height: 50,
+                            // decoration: BoxDecoration(color: Colors.blueGrey),
+                            child: DropdownButton<String>(
+                              value: selectedItem,
+                              items: items
+                                  .map(
+                                    (item) => DropdownMenuItem<String>(
+                                      child: Text(item),
+                                      value: item,
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (item) => {
+                                setState(
+                                  () => selectedItem = item,
                                 )
-                                .toList(),
-                            onChanged: (item) => {
-                              setState(
-                                () => selectedItem = item,
-                              )
-                            },
+                              },
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                            width: 60,
-                          ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.black),
+                          ),
+                          onPressed: () async {
+                            DateTime? newDate = await showDatePicker(
+                              context: context,
+                              initialDate: date,
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2100),
+                            );
+                            if (newDate == null) return;
+                            setState(
+                              () {
+                                date = newDate;
+                              },
+                            );
+                          },
+                          child: Container(
+                            child: Text("Tap to change date"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.black),
+                          ),
+                          onPressed: () async {
+                            DateTime? newDate = await showDatePicker(
+                              context: context,
+                              initialDate: date,
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2100),
+                            );
+                            if (newDate == null) return;
+                            setState(
+                              () {
+                                date = newDate;
+                              },
+                            );
+                          },
+                          child: Container(
+                            child: Text("Tap to change time"),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
