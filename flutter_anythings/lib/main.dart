@@ -50,37 +50,38 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     ToDoList(),
     StatisticsPage(),
-    SettingsPage(),
+    // SettingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_rounded),
-            label: 'Tasks',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart_rounded),
-            label: 'Statistics',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_rounded),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 0, 8, 99),
-        unselectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
+      // body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(0),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home_rounded),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.list_rounded),
+      //       label: 'Tasks',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.show_chart_rounded),
+      //       label: 'Statistics',
+      //     ),
+      //     // BottomNavigationBarItem(
+      //     //   icon: Icon(Icons.settings_rounded),
+      //     //   label: 'Settings',
+      //     // ),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: const Color.fromARGB(255, 0, 8, 99),
+      //   unselectedItemColor: Colors.black,
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 }
