@@ -20,11 +20,11 @@ class ThingFields {
 
 class Thing {
   final int? id;
-  final String? title;
+  final String title;
   final String? subtitle;
   final int? count;
   final String? category;
-  final DateTime? createdTime;
+  final DateTime createdTime;
 
   const Thing({
     this.id,
@@ -54,7 +54,7 @@ class Thing {
 
   static Thing fromJson(Map<String, Object?> json) => Thing(
         id: json[ThingFields.id] as int?,
-        title: json[ThingFields.title] as String?,
+        title: json[ThingFields.title] as String,
         subtitle: json[ThingFields.subtitle] as String?,
         count: json[ThingFields.count] as int?,
         category: json[ThingFields.category] as String?,
@@ -66,6 +66,6 @@ class Thing {
         ThingFields.subtitle: subtitle,
         ThingFields.category: category,
         ThingFields.count: count,
-        ThingFields.time: createdTime!.toIso8601String(),
+        ThingFields.time: createdTime.toIso8601String(),
       };
 }

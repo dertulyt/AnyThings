@@ -6,6 +6,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../common/ThingCard.dart';
 import '../db/AllThingsDatabase.dart';
+import 'NoteDetailPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -132,6 +133,13 @@ class _HomePageState extends State<HomePage> {
         return InkWell(
             onLongPress: () async {
               AllMyThings.instance.delete(things[index].id);
+              refreshNotes();
+            },
+            onTap: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NoteDetailPage(noteId: things[index].id!),
+              ));
+
               refreshNotes();
             },
             child: NewThingWidget(
