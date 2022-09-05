@@ -42,6 +42,7 @@ class _NewThingPageState extends State<NewThingPage> {
   late String newThingSubtitle;
   late int newThingCount;
   TimeOfDay? selectedTime = TimeOfDay.now();
+  late String chooseCategory;
 
   final _thingtitleController = TextEditingController();
   final _thingsubtitleController = TextEditingController();
@@ -76,7 +77,8 @@ class _NewThingPageState extends State<NewThingPage> {
                     createdTime: date,
                     subtitle: newThingSubtitle,
                     count: newThingCount,
-                    category: selectedItem);
+                    category: selectedItem,
+                    choose: chooseCategory);
                 await AllMyThings.instance.create(thing);
                 Navigator.pop(context);
               }
@@ -316,12 +318,12 @@ class _NewThingPageState extends State<NewThingPage> {
 
   Future addNote() async {
     final note = Thing(
-      title: newThingTitle,
-      subtitle: newThingSubtitle,
-      count: newThingCount,
-      category: selectedItem,
-      createdTime: DateTime.now(),
-    );
+        title: newThingTitle,
+        subtitle: newThingSubtitle,
+        count: newThingCount,
+        category: selectedItem,
+        createdTime: DateTime.now(),
+        choose: chooseCategory);
 
     await AllMyThings.instance.create(note);
   }
@@ -332,7 +334,12 @@ class _NewThingPageState extends State<NewThingPage> {
       itemCount: myCategories.length,
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: (() {}),
+          onTap: (() {
+            setState(() {
+              chooseCategory = myCategories[index]['name'];
+              print(chooseCategory);
+            });
+          }),
           child: Row(
             children: [
               Container(

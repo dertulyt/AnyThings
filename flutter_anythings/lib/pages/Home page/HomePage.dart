@@ -137,18 +137,41 @@ class _HomePageState extends State<HomePage> {
             },
             onTap: () async {
               await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteDetailPage(noteId: things[index].id!),
+                builder: (context) => NoteDetailPage(noteId: things[index]!),
               ));
 
               refreshNotes();
             },
             child: NewThingWidget(
-              icon: Icons.school_outlined,
+              icon: myGetIcon(things[index].choose),
               title: things[index].title,
               subtitle: "${things[index].count} ${things[index].category}",
               date: hourDate,
             ));
       },
     );
+  }
+
+  myGetIcon(val) {
+    List<Map> myCategories = [
+      {"name": "Study", "icon": Icons.school},
+      {"name": "Sport", "icon": Icons.directions_run},
+      {"name": "Work", "icon": Icons.work},
+      {"name": "Kitchen", "icon": Icons.kitchen},
+      {"name": "Hobbies", "icon": Icons.emoji_emotions},
+      {"name": "Reading", "icon": Icons.book},
+      {"name": "Relax", "icon": Icons.weekend},
+      {"name": "Meditation", "icon": Icons.self_improvement},
+      {"name": "Own", "icon": Icons.favorite},
+    ];
+    IconData myIcon = Icons.school_outlined;
+
+    myCategories.forEach((element) {
+      if (element["name"] == val) {
+        myIcon = element["icon"];
+      }
+    });
+
+    return myIcon;
   }
 }

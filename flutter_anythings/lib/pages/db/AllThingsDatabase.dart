@@ -11,7 +11,7 @@ class AllMyThings {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('allThings5.db');
+    _database = await _initDB('allThing2s6.db');
     return _database!;
   }
 
@@ -34,7 +34,8 @@ class AllMyThings {
       ${ThingFields.subtitle} $textType,
       ${ThingFields.count} $integerType,
       ${ThingFields.category} $textType,
-      ${ThingFields.time} $textType
+      ${ThingFields.time} $textType,
+      ${ThingFields.choose} $textType
     )''');
   }
 

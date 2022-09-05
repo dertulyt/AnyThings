@@ -4,7 +4,7 @@ import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetailPage extends StatefulWidget {
-  final int noteId;
+  final Thing noteId;
 
   const NoteDetailPage({
     Key? key,
@@ -16,7 +16,7 @@ class NoteDetailPage extends StatefulWidget {
 }
 
 class _NoteDetailPageState extends State<NoteDetailPage> {
-  late Thing thing;
+  // late Thing thing;
   bool isLoading = false;
 
   @override
@@ -29,7 +29,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Future refreshNote() async {
     setState(() => isLoading = true);
 
-    this.thing = await AllMyThings.instance.readNote(widget.noteId);
+    // this.thing = await AllMyThings.instance.readNote(widget.noteId);
 
     setState(() => isLoading = false);
   }
@@ -38,6 +38,14 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           actions: [deleteButton()],
+          title: Text(
+            widget.noteId.title,
+            style: TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
@@ -46,24 +54,23 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                 child: ListView(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   children: [
-                    Text(
-                      thing.title,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     SizedBox(height: 8),
                     Text(
-                      DateFormat.yMMMd().format(thing.createdTime),
+                      DateFormat.yMMMd().format(widget.noteId.createdTime),
                       style: TextStyle(color: Color.fromARGB(97, 0, 0, 0)),
                     ),
                     SizedBox(height: 8),
-                    // Text(
-                    //   thing.subtitle,
-                    //   style: TextStyle(color: Colors.white70, fontSize: 18),
-                    // ),
+                    Text(
+                      widget.noteId.subtitle.toString(),
+                      style: TextStyle(
+                          color: Color.fromARGB(179, 0, 0, 0), fontSize: 18),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      widget.noteId.choose.toString(),
+                      style: TextStyle(
+                          color: Color.fromARGB(179, 0, 0, 0), fontSize: 18),
+                    ),
                   ],
                 ),
               ),
@@ -72,7 +79,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Widget deleteButton() => IconButton(
         icon: Icon(Icons.delete),
         onPressed: () async {
-          await AllMyThings.instance.delete(widget.noteId);
+          await AllMyThings.instance.delete(widget.noteId.id!);
 
           Navigator.of(context).pop();
         },
