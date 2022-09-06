@@ -42,8 +42,8 @@ class _NewThingPageState extends State<NewThingPage> {
   late int newThingCount;
   TimeOfDay? selectedTime = TimeOfDay.now();
   String chooseCategory = "Own";
-  int newHour = 0;
-  int newMinute = 0;
+  late int newHour;
+  late int newMinute;
 
   final _thingtitleController = TextEditingController();
   final _thingsubtitleController = TextEditingController();
@@ -272,6 +272,7 @@ class _NewThingPageState extends State<NewThingPage> {
                                   MaterialStateProperty.all(Colors.black),
                             ),
                             onPressed: chooseTime,
+                            // onPressed: () {},
                             child: Container(
                               child: Text("Tap to change time"),
                             ),
@@ -481,23 +482,35 @@ class _NewThingPageState extends State<NewThingPage> {
                                   MaterialStateProperty.all(Colors.black),
                             ),
                             onPressed: () {
-                              setState(() {
-                                newHour = int.parse(_hourController.text);
-                                newMinute = int.parse(_minuteController.text);
-                              });
-                              if (newHour != 0 && newMinute != 0) {
+                              if (_hourController.text.isEmpty ||
+                                  _minuteController.text.isEmpty) {
                                 Navigator.pop(context);
-                                setState(() {
-                                  date = DateTime(
-                                    date.year,
-                                    date.month,
-                                    date.day,
-                                    newHour,
-                                    newMinute,
-                                  );
-                                });
-                                print("$newHour : $newMinute");
                               } else {
+                                if (int.parse(_hourController.text) >= 24) {
+                                  newHour = 23;
+                                } else {
+                                  newHour = int.parse(_hourController.text);
+                                }
+                                if (int.parse(_minuteController.text) >= 60) {
+                                  newMinute = 59;
+                                } else {
+                                  newMinute = int.parse(_minuteController.text);
+                                }
+
+                                setState(
+                                  () {
+                                    // newHour = int.parse(_hourController.text);
+
+                                    print("$newHour : $newMinute");
+                                    date = DateTime(
+                                      date.year,
+                                      date.month,
+                                      date.day,
+                                      newHour,
+                                      newMinute,
+                                    );
+                                  },
+                                );
                                 Navigator.pop(context);
                               }
                             },
