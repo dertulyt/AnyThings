@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_anythings/pages/db/AllThingsDatabase.dart';
 import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:intl/intl.dart';
+import 'package:ndialog/ndialog.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final Thing noteId;
@@ -38,7 +39,10 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.black87,
-            actions: [deleteButton()],
+            actions: [
+              deleteButton(),
+              // editButton(),
+            ],
             title: Text("Your Thing")),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
@@ -82,9 +86,31 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Widget deleteButton() => IconButton(
         icon: Icon(Icons.delete),
         onPressed: () async {
-          await AllMyThings.instance.delete(widget.noteId.id!);
-
-          Navigator.of(context).pop();
+          await NDialog(
+            dialogStyle: DialogStyle(titleDivider: true),
+            title: Text("Are you sure you want to delete the note?"),
+            actions: <Widget>[
+              TextButton(
+                  child: Text("No"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+              TextButton(
+                  child: Text("Yes"),
+                  onPressed: () {
+                    AllMyThings.instance.delete(widget.noteId.id!);
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  }),
+            ],
+          ).show(context);
         },
       );
+
+  Widget editButton() => IconButton(
+      icon: Icon(Icons.edit_outlined),
+      onPressed: () async {
+        if (isLoading) return;
+
+        refreshNote();
+      });
 }

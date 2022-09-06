@@ -354,6 +354,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  ndialog:
+    dependency: "direct main"
+    description:
+      name: ndialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.1+1"
   package_config:
     dependency: transitive
     description:
@@ -418,7 +425,7 @@ packages:
     source: hosted
     version: "2.1.2"
   platform:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: platform
       url: "https://pub.dartlang.org"

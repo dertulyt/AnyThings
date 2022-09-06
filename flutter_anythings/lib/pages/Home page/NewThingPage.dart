@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_anythings/main.dart';
 import 'package:flutter_anythings/pages/db/AllThingsDatabase.dart';
 import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:intl/intl.dart';
+import 'package:platform/platform.dart';
 import '../model/thing.dart';
 
 class NewThingPage extends StatefulWidget {
@@ -154,6 +156,16 @@ class _NewThingPageState extends State<NewThingPage> {
                               // decoration: BoxDecoration(color: Colors.blueGrey),
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
+                                // keyboardType: Platform.isIOS
+                                //     ? TextInputType.numberWithOptions(
+                                //         signed: true, decimal: true)
+                                //     : TextInputType.number,
+                                // keyboardType: TextInputType.numberWithOptions(
+                                //     signed: true),
+                                textInputAction: TextInputAction.done,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Write please some count...';
