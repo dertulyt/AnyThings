@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_anythings/main.dart';
 import 'package:flutter_anythings/pages/db/AllThingsDatabase.dart';
 import 'package:flutter_anythings/pages/model/thing.dart';
+import 'package:intl/intl.dart';
 import '../model/thing.dart';
 
 class NewThingPage extends StatefulWidget {
@@ -229,7 +230,14 @@ class _NewThingPageState extends State<NewThingPage> {
                               if (newDate == null) return;
                               setState(
                                 () {
-                                  date = newDate;
+                                  // date = newDate;
+                                  if (DateFormat.yMMMd().format(newDate) ==
+                                      DateFormat.yMMMd()
+                                          .format(DateTime.now())) {
+                                    date = DateTime.now();
+                                  } else {
+                                    date = newDate;
+                                  }
                                 },
                               );
                             },
