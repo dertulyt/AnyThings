@@ -481,11 +481,13 @@ class _NewThingPageState extends State<NewThingPage> {
                                   MaterialStateProperty.all(Colors.black),
                             ),
                             onPressed: () {
+                              setState(() {
+                                newHour = int.parse(_hourController.text);
+                                newMinute = int.parse(_minuteController.text);
+                              });
                               if (newHour != 0 && newMinute != 0) {
                                 Navigator.pop(context);
                                 setState(() {
-                                  newHour = int.parse(_hourController.text);
-                                  newMinute = int.parse(_minuteController.text);
                                   date = DateTime(
                                     date.year,
                                     date.month,
