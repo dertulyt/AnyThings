@@ -184,18 +184,10 @@ class _HomePageState extends State<HomePage> {
         DateFormat.yMMMd().format(DateTime.now())) {
       newCheckDate =
           '${vale.createdTime.hour.toString()}:${vale.createdTime.minute.toString()}';
-      print("Ok aaaaaaa");
     } else {
-      print('No OK aaaaaaa');
       newCheckDate = DateFormat.yMMMd().format(vale.createdTime);
     }
-    // setState(() {
-    //   hourDate =
-    //       '${vale.createdTime.hour.toString()}:${vale.createdTime.minute.toString()}';
-    // });
-    // print(vale.createdTime);
-    // print(DateFormat.yMMMd().format(vale.createdTime));
-    // print("hello");
+
     return newCheckDate;
   }
 }

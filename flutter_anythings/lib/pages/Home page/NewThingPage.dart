@@ -37,7 +37,7 @@ class _NewThingPageState extends State<NewThingPage> {
   late String newThingSubtitle;
   late int newThingCount;
   TimeOfDay? selectedTime = TimeOfDay.now();
-  late String chooseCategory;
+  String chooseCategory = "Own";
 
   final _thingtitleController = TextEditingController();
   final _thingsubtitleController = TextEditingController();
@@ -320,15 +320,25 @@ class _NewThingPageState extends State<NewThingPage> {
 
   Future addNote() async {
     final note = Thing(
-        title: newThingTitle,
-        subtitle: newThingSubtitle,
-        count: newThingCount,
-        category: selectedItem,
-        createdTime: DateTime.now(),
-        choose: chooseCategory);
+      title: newThingTitle,
+      subtitle: newThingSubtitle,
+      count: newThingCount,
+      category: selectedItem,
+      createdTime: DateTime.now(),
+      choose: chooseCategory,
+    );
+    // choose: checkChoosingCategory(chooseCategory));
 
     await AllMyThings.instance.create(note);
   }
+
+  // checkChoosingCategory(val) {
+  //   String defaultCategory = 'Own';
+  //   if (val == null) {
+  //     return defaultCategory;
+  //   } else
+  //     return chooseCategory;
+  // }
 
   choosingCategoryWidget() {
     return ListView.builder(
