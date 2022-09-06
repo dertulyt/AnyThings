@@ -37,16 +37,9 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: [deleteButton()],
-          title: Text(
-            widget.noteId.title,
-            style: TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+            backgroundColor: Colors.black87,
+            actions: [deleteButton()],
+            title: Text("Your Thing")),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
             : Padding(
@@ -54,23 +47,33 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                 child: ListView(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   children: [
-                    SizedBox(height: 8),
                     Text(
                       DateFormat.yMMMd().format(widget.noteId.createdTime),
                       style: TextStyle(color: Color.fromARGB(97, 0, 0, 0)),
                     ),
                     SizedBox(height: 8),
                     Text(
+                      widget.noteId.title,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+
+                    Text(
                       widget.noteId.subtitle.toString(),
                       style: TextStyle(
                           color: Color.fromARGB(179, 0, 0, 0), fontSize: 18),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      widget.noteId.choose.toString(),
-                      style: TextStyle(
-                          color: Color.fromARGB(179, 0, 0, 0), fontSize: 18),
-                    ),
+
+                    // Text(
+                    //   widget.noteId.choose.toString(),
+                    //   style: TextStyle(
+                    //       color: Color.fromARGB(179, 0, 0, 0), fontSize: 18),
+                    // ),
                   ],
                 ),
               ),

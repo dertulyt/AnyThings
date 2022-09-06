@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    ToDoList(),
+    // ToDoList(),
     StatisticsPage(),
     // SettingsPage(),
   ];
@@ -64,10 +64,10 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_rounded),
-            label: 'Tasks',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.list_rounded),
+          //   label: 'Tasks',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.show_chart_rounded),
             label: 'Statistics',

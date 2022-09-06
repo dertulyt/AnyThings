@@ -246,32 +246,32 @@ class _NewThingPageState extends State<NewThingPage> {
                             ),
                           ),
                         ),
-                        // SizedBox(
-                        //   width: 20,
-                        // ),
-                        // Expanded(
-                        //   child: ElevatedButton(
-                        //     style: ButtonStyle(
-                        //       backgroundColor:
-                        //           MaterialStateProperty.all(Colors.black),
-                        //     ),
-                        //     onPressed: () async {
-                        //       // print(myCategories[2]['Icon']);
-                        //       setState(
-                        //         () {
-                        //           date = DateTime(
-                        //             date.year,
-                        //             date.month,
-                        //             date.day,
-                        //           );
-                        //         },
-                        //       );
-                        //     },
-                        //     child: Container(
-                        //       child: Text("Tap to change time"),
-                        //     ),
-                        //   ),
-                        // ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
+                            onPressed: () async {
+                              // print(myCategories[2]['Icon']);
+                              setState(
+                                () {
+                                  date = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              child: Text("Tap to change time"),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -349,7 +349,6 @@ class _NewThingPageState extends State<NewThingPage> {
           onTap: (() {
             setState(() {
               chooseCategory = myCategories[index]['name'];
-              print(chooseCategory);
             });
             rafreshColor(myCategories);
             myCategories[index]["status"] = true;
@@ -365,8 +364,8 @@ class _NewThingPageState extends State<NewThingPage> {
                       ), //
                     ),
                     color: myCategories[index]["status"]
-                        ? Colors.yellow
-                        : Colors.blue),
+                        ? Color.fromARGB(255, 207, 207, 207)
+                        : Color.fromARGB(255, 255, 255, 255)),
                 width: 100,
                 child: Column(
                   children: [

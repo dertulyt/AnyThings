@@ -44,10 +44,10 @@ class NewThingWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 180,
+                  width: 210,
                   child: Text(
                     title,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
