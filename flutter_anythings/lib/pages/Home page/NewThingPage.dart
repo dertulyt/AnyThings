@@ -6,7 +6,9 @@ import 'package:flutter_anythings/main.dart';
 import 'package:flutter_anythings/pages/db/AllThingsDatabase.dart';
 import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:intl/intl.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:platform/platform.dart';
+
 import '../model/thing.dart';
 
 class NewThingPage extends StatefulWidget {
@@ -40,6 +42,8 @@ class _NewThingPageState extends State<NewThingPage> {
   late int newThingCount;
   TimeOfDay? selectedTime = TimeOfDay.now();
   String chooseCategory = "Own";
+  int newHour = 0;
+  int newMinute = 0;
 
   final _thingtitleController = TextEditingController();
   final _thingsubtitleController = TextEditingController();
@@ -267,18 +271,7 @@ class _NewThingPageState extends State<NewThingPage> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.black),
                             ),
-                            onPressed: () async {
-                              // print(myCategories[2]['Icon']);
-                              setState(
-                                () {
-                                  date = DateTime(
-                                    date.year,
-                                    date.month,
-                                    date.day,
-                                  );
-                                },
-                              );
-                            },
+                            onPressed: chooseTime,
                             child: Container(
                               child: Text("Tap to change time"),
                             ),
@@ -410,11 +403,116 @@ class _NewThingPageState extends State<NewThingPage> {
     );
   }
 
-  // chooseColor(val) {
-  //   // print(myCategories[1]["status"]);
-  //   Color color = Colors.yellow;
+  chooseTime() async {
+    final _hourController = TextEditingController();
+    final _minuteController = TextEditingController();
 
-  // }
+    await NDialog(
+      dialogStyle: DialogStyle(titleDivider: true),
+      title: Text("Time of creating this thing:"),
+      actions: <Widget>[
+        Form(
+          child: Container(
+            width: 300,
+            margin: EdgeInsets.all(10),
+            child: Form(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: "Hours",
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                          ),
+                          controller: _hourController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(':'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: "Minutes",
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                          ),
+                          controller: _minuteController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancel"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
+                            onPressed: () {
+                              if (newHour != 0 && newMinute != 0) {
+                                Navigator.pop(context);
+                                setState(() {
+                                  newHour = int.parse(_hourController.text);
+                                  newMinute = int.parse(_minuteController.text);
+                                  date = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    newHour,
+                                    newMinute,
+                                  );
+                                });
+                                print("$newHour : $newMinute");
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Text("Change time"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    ).show(context);
+  }
 
   rafreshColor(val) {
     for (var i = 0; i < myCategories.length; i++) {

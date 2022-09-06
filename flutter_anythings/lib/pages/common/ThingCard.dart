@@ -44,7 +44,7 @@ class NewThingWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 210,
+                  width: 180,
                   child: Text(
                     title,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
