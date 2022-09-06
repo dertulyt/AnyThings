@@ -41,7 +41,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
           title: Text(
             widget.noteId.title,
             style: TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Color.fromARGB(255, 255, 255, 255),
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),

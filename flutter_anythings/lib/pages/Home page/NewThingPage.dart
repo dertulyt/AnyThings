@@ -16,24 +16,18 @@ class NewThingPage extends StatefulWidget {
 
 class _NewThingPageState extends State<NewThingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final items = [
-    "Minutes",
-    "Metres",
-    "Hours",
-    "Kg",
-    "Km",
-  ];
+  final items = ["Minutes", "Metres", "Hours", "Kg", "Km", "Times"];
 
   List<Map> myCategories = [
-    {"name": "Study", "Icon": Icons.school},
-    {"name": "Sport", "Icon": Icons.directions_run},
-    {"name": "Work", "Icon": Icons.work},
-    {"name": "Kitchen", "Icon": Icons.kitchen},
-    {"name": "Hobbies", "Icon": Icons.emoji_emotions},
-    {"name": "Reading", "Icon": Icons.book},
-    {"name": "Relax", "Icon": Icons.weekend},
-    {"name": "Meditation", "Icon": Icons.self_improvement},
-    {"name": "Own", "Icon": Icons.favorite},
+    {"name": "Study", "Icon": Icons.school, "status": false},
+    {"name": "Sport", "Icon": Icons.directions_run, "status": false},
+    {"name": "Work", "Icon": Icons.work, "status": false},
+    {"name": "Kitchen", "Icon": Icons.kitchen, "status": false},
+    {"name": "Hobbies", "Icon": Icons.emoji_emotions, "status": false},
+    {"name": "Reading", "Icon": Icons.book, "status": false},
+    {"name": "Relax", "Icon": Icons.weekend, "status": false},
+    {"name": "Meditation", "Icon": Icons.self_improvement, "status": false},
+    {"name": "Own", "Icon": Icons.favorite, "status": false},
   ];
 
   String? selectedItem = 'Minutes';
@@ -339,16 +333,22 @@ class _NewThingPageState extends State<NewThingPage> {
               chooseCategory = myCategories[index]['name'];
               print(chooseCategory);
             });
+            rafreshColor(myCategories);
+            myCategories[index]["status"] = true;
           }),
           child: Row(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.all(Radius.circular(
-                          5.0) //                 <--- border radius here
-                      ),
-                ),
+                    border: Border.all(),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        5.0,
+                      ), //
+                    ),
+                    color: myCategories[index]["status"]
+                        ? Colors.yellow
+                        : Colors.blue),
                 width: 100,
                 child: Column(
                   children: [
@@ -379,5 +379,17 @@ class _NewThingPageState extends State<NewThingPage> {
         );
       },
     );
+  }
+
+  // chooseColor(val) {
+  //   // print(myCategories[1]["status"]);
+  //   Color color = Colors.yellow;
+
+  // }
+
+  rafreshColor(val) {
+    for (var i = 0; i < myCategories.length; i++) {
+      myCategories[i]["status"] = false;
+    }
   }
 }

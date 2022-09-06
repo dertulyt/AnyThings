@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_anythings/pages/model/thing.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:intl/intl.dart';
 
 import '../common/ThingCard.dart';
 import '../db/AllThingsDatabase.dart';
@@ -146,7 +147,9 @@ class _HomePageState extends State<HomePage> {
               icon: myGetIcon(things[index].choose),
               title: things[index].title,
               subtitle: "${things[index].count} ${things[index].category}",
-              date: hourDate,
+              // date: hourDate,
+              date: checkDate(things[index]),
+              // date: things[index].createdTime,
             ));
       },
     );
@@ -173,5 +176,26 @@ class _HomePageState extends State<HomePage> {
     });
 
     return myIcon;
+  }
+
+  checkDate(vale) {
+    String newCheckDate = "";
+    if (DateFormat.yMMMd().format(vale.createdTime) ==
+        DateFormat.yMMMd().format(DateTime.now())) {
+      newCheckDate =
+          '${vale.createdTime.hour.toString()}:${vale.createdTime.minute.toString()}';
+      print("Ok aaaaaaa");
+    } else {
+      print('No OK aaaaaaa');
+      newCheckDate = DateFormat.yMMMd().format(vale.createdTime);
+    }
+    // setState(() {
+    //   hourDate =
+    //       '${vale.createdTime.hour.toString()}:${vale.createdTime.minute.toString()}';
+    // });
+    // print(vale.createdTime);
+    // print(DateFormat.yMMMd().format(vale.createdTime));
+    // print("hello");
+    return newCheckDate;
   }
 }
